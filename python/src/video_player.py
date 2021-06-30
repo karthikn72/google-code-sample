@@ -2,6 +2,7 @@
 import random
 
 from .video_library import VideoLibrary
+from .video_playlist import Playlist
 
 
 class VideoPlayer:
@@ -92,6 +93,7 @@ class VideoPlayer:
         else:
             print("No video is currently playing")
 
+
     def create_playlist(self, playlist_name):
         """Creates a playlist with a given name.
 
@@ -99,7 +101,13 @@ class VideoPlayer:
             playlist_name: The playlist name.
         """
 
-        print("create_playlist needs implementation")
+        standardised_playlist_names = [playlist_name.lower() for playlist_name in self._playlists.keys()]
+        if playlist_name.lower() not in standardised_playlist_names:
+            new_playlist = Playlist()
+            self._playlists[playlist_name] = new_playlist
+            print(f"Successfully created new playlist: {playlist_name}")
+        else:
+            print("Cannot create playlist: A playlist with the same name already exists")
 
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
