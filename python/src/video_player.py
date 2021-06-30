@@ -15,8 +15,11 @@ class VideoPlayer:
 
     def show_all_videos(self):
         """Returns all videos."""
+        sorted_videos = sorted(self._video_library.get_all_videos(), key=lambda video: video.title)
 
-        print("show_all_videos needs implementation")
+        print("Here's a list of all available videos:")
+        for video in sorted_videos:
+            print(f"{video.title} ({video.video_id}) [{' '.join(video.tags)}]")
 
     def play_video(self, video_id):
         """Plays the respective video.
@@ -138,3 +141,4 @@ class VideoPlayer:
             video_id: The video_id to be allowed again.
         """
         print("allow_video needs implementation")
+
