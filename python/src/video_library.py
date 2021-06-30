@@ -13,12 +13,12 @@ def _csv_reader_with_strip(reader):
     yield from ((item.strip() for item in line) for line in reader)
 
 
-class VideoLibrary:
+class VideoLibrary(VideoCollection):
     """A class used to represent a Video Library."""
 
     def __init__(self):
         """The VideoLibrary class is initialized."""
-        self._videos = VideoCollection()
+        super().__init__()
         with open(Path(__file__).parent / "videos.txt") as video_file:
             reader = _csv_reader_with_strip(
                 csv.reader(video_file, delimiter="|"))
@@ -29,4 +29,4 @@ class VideoLibrary:
                     url,
                     [tag.strip() for tag in tags.split(",")] if tags else [],
                 )
-                self._videos.add_video(video_to_add)
+                self.add_video(video_to_add)

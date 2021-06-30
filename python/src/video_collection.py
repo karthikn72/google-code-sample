@@ -4,7 +4,7 @@ from .video import Video
 
 
 class VideoCollection:
-    "A class used to represent a Video Collection"
+    """A class used to represent a Video Collection"""
 
     def __init__(self):
         self._videos = {}
