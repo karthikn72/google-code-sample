@@ -1,4 +1,5 @@
 """A video player class."""
+import random
 
 from .video_library import VideoLibrary
 
@@ -8,6 +9,8 @@ class VideoPlayer:
 
     def __init__(self):
         self._video_library = VideoLibrary()
+        self._current_video = "None"
+        self._video_paused = False
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -27,32 +30,66 @@ class VideoPlayer:
         Args:
             video_id: The video_id to be played.
         """
-        print("play_video needs implementation")
+        video_to_play = self._video_library.get_video(video_id)
+        if self._current_video != "None" and video_to_play is not None:
+            self.stop_video()
+
+        if video_to_play is not None:
+            print(f"Playing video: {video_to_play.title}")
+            self._current_video = video_to_play
+        else:
+            print("Cannot play video: Video does not exist")
 
     def stop_video(self):
         """Stops the current video."""
-
-        print("stop_video needs implementation")
+        if self._current_video != "None":
+            print(f"Stopping video: {self._current_video.title}")
+            self._current_video = "None"
+            self._video_paused = False
+        else:
+            print("Cannot stop video: No video is currently playing")
 
     def play_random_video(self):
         """Plays a random video from the video library."""
 
-        print("play_random_video needs implementation")
+        all_ids = [video.video_id for video in self._video_library.get_all_videos()]
+        if all_ids is not None:
+            random_id = random.choice(all_ids)
+            self.play_video(random_id)
+        else:
+            print("No videos available")
 
     def pause_video(self):
         """Pauses the current video."""
 
-        print("pause_video needs implementation")
+        if not self._video_paused and self._current_video != "None":
+            print(f"Pausing video: {self._current_video.title}")
+            self._video_paused = True
+        elif self._current_video == "None":
+            print("Cannot pause video: No video is currently playing")
+        elif self._video_paused:
+            print(f"Video already paused: {self._current_video.title}")
 
     def continue_video(self):
         """Resumes playing the current video."""
 
-        print("continue_video needs implementation")
+        if self._video_paused and self._current_video != "None":
+            print(f"Continuing video: {self._current_video.title}")
+            self._video_paused = False
+        elif self._current_video == "None":
+            print("Cannot continue video: No video is currently playing")
+        elif not self._video_paused:
+            print("Cannot continue video: Video is not paused")
 
     def show_playing(self):
         """Displays video currently playing."""
-
-        print("show_playing needs implementation")
+        if self._current_video != "None":
+            print(
+                f"Currently playing: {self._current_video.title} ({self._current_video.video_id}) [{' '.join(self._current_video.tags)}]",
+                end='')
+            print(" - PAUSED" if self._video_paused else "")
+        else:
+            print("No video is currently playing")
 
     def create_playlist(self, playlist_name):
         """Creates a playlist with a given name.
@@ -141,4 +178,3 @@ class VideoPlayer:
             video_id: The video_id to be allowed again.
         """
         print("allow_video needs implementation")
-
