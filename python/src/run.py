@@ -1,8 +1,7 @@
 """A youtube terminal simulator."""
-from .video_player import VideoPlayer
 from .command_parser import CommandException
 from .command_parser import CommandParser
-
+from .video_player import VideoPlayer
 
 if __name__ == "__main__":
     print("""Hello and welcome to YouTube, what would you like to do?
