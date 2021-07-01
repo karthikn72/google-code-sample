@@ -6,6 +6,6 @@ from .video_collection import VideoCollection
 class Playlist(VideoCollection):
     """A class used to represent a Playlist."""
 
-    def __init__(self):
+    def __init__(self, name):
         super().__init__()
-
+        self.initial_name = name
